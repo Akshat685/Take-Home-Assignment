@@ -152,7 +152,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="mt-6 flex min-h-80 flex-col gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div className="mt-6 flex min-h-80 max-h-[500px] flex-col gap-4 overflow-y-auto rounded-2xl border border-slate-200 bg-slate-50 p-4">
               {messages.length === 0 ? (
                 <div className="flex flex-1 items-center justify-center text-center text-slate-500">
                   Try asking what the site says about pricing, features, policies, docs, or contact information.

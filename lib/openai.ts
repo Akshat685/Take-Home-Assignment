@@ -22,5 +22,6 @@ export function getChatModel(): string {
 }
 
 export function getEmbeddingModel(): string {
-  return requireEnv("OPENAI_EMBEDDING_MODEL");
+  // return requireEnv("OPENAI_EMBEDDING_MODEL");
+  return requireEnv("GEMINI_EMBEDDING_MODEL");
 }
