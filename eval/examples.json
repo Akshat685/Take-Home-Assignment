@@ -1,0 +1,11 @@
+[
+  {
+    "siteUrl": "https://example.com",
+    "questions": [
+      {
+        "question": "What is this website used for?",
+        "expectedSourceHint": "example.com"
+      }
+    ]
+  }
+]
