@@ -10,13 +10,15 @@ function requireEnv(name: string): string {
 
 export function getOpenAIClient(): OpenAI {
   return new OpenAI({
-    apiKey: requireEnv("OPENAI_API_KEY"),
+    // apiKey: requireEnv("OPENAI_API_KEY"),
+    apiKey: requireEnv("GEMINI_API_KEY"),
     baseURL: process.env.OPENAI_BASE_URL || undefined
   });
 }
 
 export function getChatModel(): string {
-  return requireEnv("OPENAI_MODEL");
+  // return requireEnv("OPENAI_MODEL");
+  return requireEnv("GEMINI_API_KEY_MODEL");
 }
 
 export function getEmbeddingModel(): string {
