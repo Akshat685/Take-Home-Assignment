@@ -10,6 +10,7 @@
     "eval": "tsx eval/run.ts"
   },
   "dependencies": {
+    "@google/genai": "^2.8.0",
     "cheerio": "1.0.0",
     "next": "14.2.16",
     "openai": "^4.77.0",

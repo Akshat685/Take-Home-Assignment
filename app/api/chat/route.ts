@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
     const result = await answerQuestion(question, body.siteId);
     return NextResponse.json(result);
   } catch (error) {
+    console.error("❌ Chat API Error:", error);
     const message = error instanceof Error ? error.message : "Unexpected chat error.";
     return NextResponse.json({ error: message }, { status: 500 });
   }

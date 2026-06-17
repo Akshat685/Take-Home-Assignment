@@ -12,6 +12,10 @@ export async function embedTexts(texts: string[]): Promise<number[][]> {
   const embeddings: number[][] = [];
 
   for (let i = 0; i < texts.length; i += EMBEDDING_BATCH_SIZE) {
+    if (i > 0) {
+      // Sleep for 2 seconds between batches to avoid hitting Gemini's free tier rate limit
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
     const batch = texts.slice(i, i + EMBEDDING_BATCH_SIZE);
     const response = await client.embeddings.create({
       model,

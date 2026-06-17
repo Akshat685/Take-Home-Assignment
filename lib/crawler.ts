@@ -3,7 +3,7 @@ import { loadRobotsPolicy } from "./robots";
 import type { CrawlConfig, CrawlOutput, CrawledPage } from "./types";
 
 export const DEFAULT_CRAWL_CONFIG: CrawlConfig = {
-  maxPages: 25,
+  maxPages: 5,
   maxDepth: 2,
   requestDelayMs: 700,
   fetchTimeoutMs: 12_000,

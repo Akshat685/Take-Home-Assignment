@@ -93,7 +93,7 @@ export default function HomePage() {
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">Crawl + RAG</p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">Chat with a Website</h1>
           <p className="mt-3 max-w-2xl text-slate-600">
-            Enter a website URL, crawl up to 25 pages within the same hostname, index the readable content, and ask
+            Enter a website URL, crawl up to 5 pages within the same hostname, index the readable content, and ask
             grounded questions with source links.
           </p>
         </section>
@@ -117,7 +117,7 @@ export default function HomePage() {
             </button>
           </form>
 
-          <p className="mt-3 text-sm text-slate-500">Defaults: max pages 25, max depth 2, polite delay between requests.</p>
+          <p className="mt-3 text-sm text-slate-500">Defaults: max pages 5, max depth 2, polite delay between requests.</p>
 
           {crawlError ? (
             <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{crawlError}</div>
