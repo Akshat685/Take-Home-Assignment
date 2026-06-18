@@ -2,10 +2,201 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 :root {
-  color-scheme: light;
+  color-scheme: dark;
+
+  --bg-base:      #0d1117;
+  --bg-surface:   #161b27;
+  --bg-elevated:  #1c2333;
+  --bg-card:      #1e2638;
+
+  --accent:       #6366f1;
+  --accent-light: #818cf8;
+  --accent-glow:  rgba(99,102,241,0.25);
+  --accent-cyan:  #22d3ee;
+
+  --text-1: #e2e8f0;
+  --text-2: #94a3b8;
+  --text-3: #475569;
+
+  --border: rgba(255,255,255,0.08);
+  --border-focus: rgba(99,102,241,0.6);
+
+  --red-bg:    rgba(239,68,68,0.1);
+  --red-border:rgba(239,68,68,0.25);
+  --red-text:  #f87171;
+
+  --amber-bg:    rgba(245,158,11,0.1);
+  --amber-border:rgba(245,158,11,0.25);
+  --amber-text:  #fbbf24;
 }
 
+/* ── Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
-  background: #f8fafc;
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-1);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Selection ────────────────────────────────────────────────── */
+::selection { background: var(--accent); color: #fff; }
+
+/* ── Tailwind overrides for dark surfaces ─────────────────────── */
+
+/* bg-slate-50  → dark base */
+.bg-slate-50 { background-color: var(--bg-base) !important; }
+
+/* bg-white → dark card */
+.bg-white { background-color: var(--bg-surface) !important; }
+
+/* bg-slate-950 (buttons) → indigo */
+.bg-slate-950 { background-color: var(--accent) !important; }
+
+/* hover:bg-slate-800 → darker indigo */
+.hover\:bg-slate-800:hover { background-color: #4f46e5 !important; }
+
+/* text-slate-950 (headings) → light */
+.text-slate-950 { color: var(--text-1) !important; }
+
+/* text-slate-600, text-slate-500 → muted */
+.text-slate-600 { color: var(--text-2) !important; }
+.text-slate-500 { color: var(--text-3) !important; }
+
+/* text-slate-900 → near-white */
+.text-slate-900 { color: var(--text-1) !important; }
+
+/* border-slate-200, border-slate-300 → subtle dark border */
+.border-slate-200 { border-color: var(--border) !important; }
+.border-slate-300 { border-color: var(--border) !important; }
+
+/* bg-slate-50 cards inside panels */
+.bg-slate-50 { background-color: var(--bg-elevated) !important; }
+
+/* inputs */
+.focus\:border-slate-950:focus { border-color: var(--accent) !important; }
+.focus\:ring-slate-200:focus   { --tw-ring-color: var(--accent-glow) !important; }
+
+/* error banner */
+.border-red-200  { border-color: var(--red-border) !important; }
+.bg-red-50       { background-color: var(--red-bg) !important; }
+.text-red-700    { color: var(--red-text) !important; }
+
+/* warning details */
+.border-amber-200  { border-color: var(--amber-border) !important; }
+.bg-amber-50       { background-color: var(--amber-bg) !important; }
+.text-amber-900    { color: var(--amber-text) !important; }
+
+/* shadow softened */
+.shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px var(--border) !important; }
+
+/* ── Extra polish ─────────────────────────────────────────────── */
+
+/* Cards — gradient top accent line */
+.rounded-3xl.bg-white,
+.rounded-3xl.bg-slate-50 {
+  position: relative;
+  overflow: hidden;
+}
+.rounded-3xl.bg-white::before,
+.rounded-3xl.bg-slate-50::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.25), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Heading tag override */
+h1, h2, h3, h4 { color: var(--text-1); }
+
+/* Stat cards inside crawl result */
+.rounded-2xl.border.bg-slate-50 {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border) !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.rounded-2xl.border.bg-slate-50:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35) !important;
+}
+
+/* Inputs & textareas */
+input[type="url"],
+input:not([type="submit"]):not([type="button"]) {
+  background: var(--bg-elevated) !important;
+  color: var(--text-1) !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input::placeholder { color: var(--text-3) !important; }
+
+/* Primary button shimmer */
+button.bg-slate-950,
+button[class*="bg-slate-950"] {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #6366f1, #818cf8) !important;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+button.bg-slate-950:hover:not(:disabled),
+button[class*="bg-slate-950"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(99,102,241,0.5) !important;
+  background: linear-gradient(135deg, #4f46e5, #6366f1) !important;
+}
+button.bg-slate-950:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Chat bubbles */
+.bg-slate-950.text-white {
+  background: linear-gradient(135deg, #6366f1, #818cf8) !important;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+}
+
+/* source links */
+.text-blue-700 {
+  color: var(--accent-light) !important;
+  text-decoration-color: rgba(129,140,248,0.4);
+  transition: color 0.2s;
+}
+.text-blue-700:hover { color: var(--accent-cyan) !important; }
+
+/* Details/summary */
+summary { cursor: pointer; }
+
+/* Typing label inside chat box */
+.text-sm.text-slate-500 { color: var(--text-3) !important; }
+
+/* ── Subtle animated gradient on page background ──────────────── */
+@keyframes bg-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 10%, rgba(99,102,241,0.07) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 80%, rgba(34,211,238,0.05) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
 }
