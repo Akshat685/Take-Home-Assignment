@@ -75,10 +75,31 @@ export async function answerQuestion(question: string, siteId?: string): Promise
     ]
   });
 
-  const answer = completion.choices[0]?.message?.content?.trim();
+  const answer = completion.choices[0]?.message?.content?.trim() || "I could not find that information in the crawled website content.";
+
+  // Only show sources when the answer actually contains relevant content.
+  // If the LLM says the info isn't in the excerpts, suppress the source links
+  // so we don't show misleading references alongside a "not found" response.
+  const notFoundPhrases = [
+    "not contain",
+    "does not contain",
+    "do not contain",
+    "not found",
+    "cannot find",
+    "could not find",
+    "no information",
+    "not mention",
+    "not available",
+    "not provided",
+    "i'm sorry",
+    "i am sorry",
+    "sorry, but"
+  ];
+  const answerLower = answer.toLowerCase();
+  const isNotFound = notFoundPhrases.some((phrase) => answerLower.includes(phrase));
 
   return {
-    answer: answer || "I could not find that information in the crawled website content.",
-    sources
+    answer,
+    sources: isNotFound ? [] : sources
   };
 }

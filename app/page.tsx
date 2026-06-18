@@ -117,7 +117,7 @@ export default function HomePage() {
             </button>
           </form>
 
-          <p className="mt-3 text-sm text-slate-500">Defaults: max pages 5, max depth 2, polite delay between requests.</p>
+          <p className="mt-3 text-sm text-slate-500">Defaults: max pages 10, max depth 2, polite delay between requests.</p>
 
           {crawlError ? (
             <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{crawlError}</div>
