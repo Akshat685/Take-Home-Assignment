@@ -1,7 +1,7 @@
 import { embedQuery } from "./embeddings";
 import { getChatModel, getOpenAIClient } from "./openai";
-import type { ChatApiResponse, RetrievalMatch, Source } from "./types";
-import { searchIndex, vectorStore } from "./vector-store";
+import type { ChatApiResponse, RetrievalMatch, SiteIndex, Source } from "./types";
+import { searchIndex } from "./vector-store";
 
 const TOP_K = 5;
 
@@ -33,14 +33,13 @@ function buildContext(matches: RetrievalMatch[]): string {
     .join("\n\n---\n\n");
 }
 
-export async function answerQuestion(question: string, siteId?: string): Promise<ChatApiResponse> {
-  const index = vectorStore.get(siteId);
-  if (!index) {
+export async function answerQuestion(question: string, siteIndex: SiteIndex): Promise<ChatApiResponse> {
+  if (!siteIndex) {
     throw new Error("No crawled site index found. Crawl a website before asking questions.");
   }
 
   const queryEmbedding = await embedQuery(question);
-  const matches = searchIndex(index, queryEmbedding, TOP_K);
+  const matches = searchIndex(siteIndex, queryEmbedding, TOP_K);
 
   if (matches.length === 0) {
     return {

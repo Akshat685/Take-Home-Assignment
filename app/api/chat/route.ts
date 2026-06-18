@@ -6,14 +6,18 @@ export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as { question?: string; siteId?: string };
+    const body = (await request.json()) as { question?: string; siteIndex?: unknown };
     const question = body.question?.trim();
 
     if (!question) {
       return NextResponse.json({ error: "Question is required." }, { status: 400 });
     }
 
-    const result = await answerQuestion(question, body.siteId);
+    if (!body.siteIndex) {
+      return NextResponse.json({ error: "No crawled site index found. Crawl a website before asking questions." }, { status: 400 });
+    }
+
+    const result = await answerQuestion(question, body.siteIndex as import("@/lib/types").SiteIndex);
     return NextResponse.json(result);
   } catch (error) {
     console.error("❌ Chat API Error:", error);

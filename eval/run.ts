@@ -4,7 +4,6 @@ import { crawlSite, DEFAULT_CRAWL_CONFIG } from "../lib/crawler";
 import { embedTexts } from "../lib/embeddings";
 import { answerQuestion } from "../lib/rag";
 import type { IndexedChunk, SiteIndex } from "../lib/types";
-import { vectorStore } from "../lib/vector-store";
 
 type EvalExample = {
   siteUrl: string;
@@ -30,7 +29,6 @@ async function indexSite(siteUrl: string): Promise<SiteIndex> {
     chunks: indexedChunks
   };
 
-  vectorStore.save(siteIndex);
   return siteIndex;
 }
 
@@ -43,7 +41,7 @@ async function main() {
     console.log(`Indexed ${index.chunks.length} chunks`);
 
     for (const item of example.questions) {
-      const result = await answerQuestion(item.question, index.siteId);
+      const result = await answerQuestion(item.question, index);
       const sourceUrls = result.sources.map((source) => source.url);
       const matchedExpectedSource = item.expectedSourceHint
         ? sourceUrls.some((url) => url.includes(item.expectedSourceHint!))

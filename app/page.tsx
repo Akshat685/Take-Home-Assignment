@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import type { ChatApiResponse, CrawlApiResponse, Source } from "@/lib/types";
+import type { ChatApiResponse, CrawlApiResponse, SiteIndex, Source } from "@/lib/types";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -12,6 +12,7 @@ type ChatMessage = {
 export default function HomePage() {
   const [url, setUrl] = useState("");
   const [crawlResult, setCrawlResult] = useState<CrawlApiResponse | null>(null);
+  const [siteIndex, setSiteIndex] = useState<SiteIndex | null>(null);
   const [crawlError, setCrawlError] = useState<string | null>(null);
   const [isCrawling, setIsCrawling] = useState(false);
   const [question, setQuestion] = useState("");
@@ -33,13 +34,14 @@ export default function HomePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url })
       });
-      const data = await response.json();
+      const data = await response.json() as CrawlApiResponse & { error?: string };
 
       if (!response.ok) {
         throw new Error(data.error ?? "Failed to crawl site.");
       }
 
-      setCrawlResult(data as CrawlApiResponse);
+      setSiteIndex(data.siteIndex);
+      setCrawlResult(data);
     } catch (error) {
       setCrawlError(error instanceof Error ? error.message : "Failed to crawl site.");
     } finally {
@@ -63,7 +65,7 @@ export default function HomePage() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: trimmedQuestion, siteId: crawlResult.siteId })
+        body: JSON.stringify({ question: trimmedQuestion, siteIndex })
       });
       const data = (await response.json()) as ChatApiResponse & { error?: string };
 

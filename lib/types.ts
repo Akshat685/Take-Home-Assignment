@@ -58,6 +58,7 @@ export type CrawlApiResponse = {
   chunksCreated: number;
   errors: string[];
   warnings: string[];
+  siteIndex: SiteIndex;
 };
 
 export type ChatApiResponse = {

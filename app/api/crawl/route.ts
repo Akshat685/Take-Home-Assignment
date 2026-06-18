@@ -66,7 +66,8 @@ export async function POST(request: NextRequest) {
       pagesCrawled: crawl.pages.length,
       chunksCreated: chunks.length,
       errors: crawl.errors,
-      warnings: crawl.warnings
+      warnings: crawl.warnings,
+      siteIndex
     });
   } catch (error) {
     const raw = error instanceof Error ? error.message : String(error);
