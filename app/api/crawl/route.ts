@@ -69,7 +69,18 @@ export async function POST(request: NextRequest) {
       warnings: crawl.warnings
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unexpected crawl error.";
+    const raw = error instanceof Error ? error.message : String(error);
+
+    // Translate known HTTP error codes from the embedding API into friendly messages
+    let message = raw;
+    if (raw.includes("503")) {
+      message = "The AI service is temporarily unavailable (503). Please wait a moment and try again.";
+    } else if (raw.includes("429")) {
+      message = "Too many requests — the AI service is rate-limiting us (429). Please wait a few seconds and try again.";
+    } else if (raw.includes("401") || raw.includes("403")) {
+      message = "Authentication failed. Please check that your API key is correct in .env.local.";
+    }
+
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
