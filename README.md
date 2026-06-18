@@ -37,7 +37,6 @@ The two stretch goals didnt get completed are:
 
 ```bash
 npm install
-cp .env.local.example .env.local
 ```
 
 Open `.env.local` and fill in your values:  
