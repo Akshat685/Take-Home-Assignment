@@ -28,6 +28,10 @@ In addition, it completes two of the stretch goals:
 - **Boilerplate stripping:** Uses Cheerio to remove navs, footers, asides, and cookie banners before text extraction so the index isn't polluted.
 - **Basic eval:** Includes a CLI eval script (`npm run eval`) with question/expected-source pairs to sanity-check retrieval quality.
 
+The two stretch goals didnt get completed are: 
+- **Streaming responses for a responsive feel.** - The responses are not streamed. They are sent in a single chunk.
+- **Handling JavaScript-rendered pages.** - The crawler doesnt handle JavaScript-rendered pages. 
+
 
 ## Getting started
 
@@ -36,7 +40,7 @@ npm install
 cp .env.local.example .env.local
 ```
 
-Open `.env.local` and fill in your values:
+Open `.env.local` and fill in your values:  
 
 ```bash
 GEMINI_API_KEY=your-gemini-api-key-here
