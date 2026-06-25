@@ -1,0 +1,33 @@
+# Dependencies — will be installed fresh inside the container
+node_modules
+
+# Next.js build output — will be rebuilt inside the container
+.next
+
+# Environment files — NEVER bake secrets into images!
+.env
+.env.local
+.env*.local
+
+# Git files — not needed in the image
+.git
+.gitignore
+
+# IDE and OS files
+.DS_Store
+*.log
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# Evaluation scripts — not needed in production
+eval
+
+# Docker files themselves
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+PROJECT_EXPLANATION.md
