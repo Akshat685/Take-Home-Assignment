@@ -93,7 +93,7 @@ export default function HomePage() {
       <div className="mx-auto flex max-w-5xl flex-col gap-6">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Crawl + RAG</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight">Chat with a Website</h1>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight">Chat with a Website (Testing - if it is working or not )</h1>
           <p className="mt-3 max-w-2xl text-slate-600">
             Enter a website URL, crawl up to 10 pages within the same hostname, index the readable content, and ask
             grounded questions with source links.
